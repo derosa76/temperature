@@ -15,7 +15,7 @@ void json_file_setup(boolean erase_config){
   if ((!erase_config) && (file_content.length()>0)) deserialize_from_file();
   else{
     JsonArray data;
-    doc["dns_name"] = "";
+    doc["dns_name"] = "temperature";
     doc["estate"] = 0;
     data = doc["description"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(descr[i]);
     data = doc["gpio"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(gpios[i]);
