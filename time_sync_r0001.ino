@@ -92,10 +92,12 @@ String formatted_time(int seconds_from_midnight){
 */
 
 String elapsed_time_online(){
-  int dt=time_object.getEpoch()-boot_time;
-  int days=dt/86400;
-      dt=dt%86400;
-  int hours=dt/3600;
-      dt=dt%3600;
-  return (String(days)+" days, "+String(hours)+" hours, "+String(dt/60)+" minutes, "+String(dt%60)+" secs");
+  unsigned long dt = time_object.getEpoch() - boot_time;
+  unsigned long days = dt / 86400L;
+      dt = dt % 86400L;
+  unsigned long hours = dt / 3600L;
+      dt = dt % 3600L;
+  unsigned long minutes = dt / 60L;
+  unsigned long seconds = dt % 60L;
+  return (String(days)+" days, "+String(hours)+" hours, "+String(minutes)+" minutes, "+String(seconds)+" secs");
 }
