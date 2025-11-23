@@ -6,8 +6,9 @@ unsigned int json_doc_check_time_interval=500;// ms
 unsigned long json_doc_check_time_last=0;
 
 
-int gpios[] = {15, 16, 17, 21, 22, 32, 25, 27, 23, 19, 18, 26, 33, 13, 14, 4};//{15, 16, 17, 21, 22, 32, 25, 27, 23, 19, 18, 26, 34, 33, 35, 39}; //messi come in eeprom da interfaccia
-String descr[]={"Sala","Bagno PT","Studio","Bagno bimbe","Bagno padronale","Cabina armadio","Camera matrim.","Cam. bimbe strada","Cam. bimbe giardino","coll_p1_in","coll_p1_out","coll_P0_in","coll_P0_out","ricircolo PT","ricircolo P1","-"};
+int gpios[] = {15, 16, 17, 21, 22, 32, 25, 23, 27, 19, 18, 26, 33, 13, 14, 4};//{15, 16, 17, 21, 22, 32, 25, 27, 23, 19, 18, 26, 34, 33, 35, 39}; //messi come in eeprom da interfaccia
+String descr[]={"Sala","Bagno PT","Cam. Stella","Bagno bimbe","Bagno padronale","Cabina armadio","Camera matrim.","Cam. Sara","Cam. Gaia","coll_p1_in","coll_p1_out","coll_P0_in","coll_P0_out","ricircolo PT","ricircolo P1","-"};
+
 
 void json_file_setup(boolean erase_config){
   String file_content=getFileVarString(jsonFileVarName);
@@ -18,10 +19,10 @@ void json_file_setup(boolean erase_config){
     doc["estate"] = 0;
     data = doc["description"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(descr[i]);
     data = doc["gpio"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(gpios[i]);
-    data = doc["kp"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(0);
-    data = doc["ki"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(0);
-    data = doc["kd"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(0);
-    data = doc["sp"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(0);
+    data = doc["kp"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(600);
+    data = doc["ki"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(10);
+    data = doc["kd"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(2);
+    data = doc["sp"].to<JsonArray>(); for (int i=0;i<16;i++) data.add(20);
     serialize_to_file();
   }
 }
