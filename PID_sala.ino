@@ -84,62 +84,21 @@ void pid_run(){
 
 //questa converte le uscite dei controllori, calcolando le effettive % alle valvole
 void control_strategy_calculations_run(){
-  // i       descrizione                 t        t_filtered
-  // 00      Sala                        21.8594 21.8614 
-  // 01      Bagno PT                    22.6875 22.7031 
-  // 02      Studio                      22.5625 22.5271 
-  // 03      Bagno bimbe                 21.5000 21.4838 
-  // 04      Bagno padronale             20.8125 20.8125 
-  // 05      Cabina armadio              20.6250 20.6250 
-  // 06      Camera matrim.              20.1250 20.1267 
-  // 07      Cam. bimbe strada           18.9375 18.9795 
-  // 08      Cam. bimbe giardino         18.6250 18.6250 
 
-  //GPWM1
-  // DO 0 = GPIO 15(termoarredo_pt) --> perc=100.0/ cycle_time=1800 s  / t*=1052.37 s < t1=1800.00 s  ==> Status=1
-  // DO 1 = GPIO 16(ingresso) --> perc=100.0/ cycle_time=1800 s  / t*=1052.37 s < t1=1800.00 s  ==> Status=1
-  // DO 2 = GPIO 17(bagnetto) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 3 = GPIO 21(cucina) --> perc=100.0/ cycle_time=1800 s  / t*=1052.37 s < t1=1800.00 s  ==> Status=1
-  // DO 4 = GPIO 22(sala lato tv) --> perc=20.0/ cycle_time=1800 s  / t*=1052.37 s >= t1=360.00 s  ==> Status=0
-  // DO 5 = GPIO 32(sala centro) --> perc=20.0/ cycle_time=1800 s  / t*=1052.37 s >= t1=360.00 s  ==> Status=0
-  // DO 6 = GPIO 25(sala lato giovanna) --> perc=20.0/ cycle_time=1800 s  / t*=1052.37 s >= t1=360.00 s  ==> Status=0
-  // DO 7 = GPIO 27(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 8 = GPIO 18(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 9 = GPIO 19(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 10 = GPIO 23(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 11 = GPIO 26(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-
-  //GPWM2
-  // DO 0 = GPIO 15(termoarredo bimbe) --> perc=30.0/ cycle_time=1800 s  / t*=996.84 s >= t1=540.00 s  ==> Status=0
-  // DO 1 = GPIO 16(studio) --> perc=25.0/ cycle_time=1800 s  / t*=996.84 s >= t1=450.00 s  ==> Status=0
-  // DO 2 = GPIO 17(camera bimbe 1 - strada) --> perc=10.0/ cycle_time=1800 s  / t*=996.84 s >= t1=180.00 s  ==> Status=0
-  // DO 3 = GPIO 21(camera bimbe 2 - giardino) --> perc=10.0/ cycle_time=1800 s  / t*=996.84 s >= t1=180.00 s  ==> Status=0
-  // DO 4 = GPIO 20(bagno bimbe) --> perc=40.0/ cycle_time=1800 s  / t*=996.84 s >= t1=720.00 s  ==> Status=0
-  // DO 5 = GPIO 32(cabina armadio) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 6 = GPIO 25(bagno padronale) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 7 = GPIO 27(camera matrimoniale 1) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 8 = GPIO 18(camera matrimoniale 2) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 9 = GPIO 19(termoarredo bagno padronale) --> perc=35.0/ cycle_time=1800 s  / t*=996.84 s >= t1=630.00 s  ==> Status=0
-  // DO 10 = GPIO 23(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-  // DO 11 = GPIO 26(non usato) --> perc=0.0/ cycle_time=0 s  / t*=0.00 s >= t1=0.00 s  ==> Status=0
-
-
-  //sala pv[0]
-  //termoarredo[0] (0-5) --> ingresso[1],cucina[3] (5-20) --> Sala tv[4], centro[5], giovanna[6] (20-100)
+  //Strategia split range piano terra
+  //termoarredo[0] (0-5) --> 
+  //ingresso[1],bagno[2], cucina[3] (5-20) --> 
+  //Sala tv[4], centro[5], giovanna[6] (20-100)
   if (op[0]<5)                  {op_gpwm1[0]=op[0]*100/5;    op_gpwm1[1]=0;                     op_gpwm1[2]=0;                     op_gpwm1[3]=0;                     op_gpwm1[4]=0;                       op_gpwm1[5]=0;            op_gpwm1[6]=0;}
   if (op[0]>=5 && op[0]<20)     {op_gpwm1[0]=100;            op_gpwm1[1]=(op[0]-5)*100/(20-5);  op_gpwm1[2]=(op[0]-5)*100/(20-5);  op_gpwm1[3]=(op[0]-5)*100/(20-5);  op_gpwm1[4]=0;                       op_gpwm1[5]=0;            op_gpwm1[6]=0;}
   if (op[0]>=20)                {op_gpwm1[0]=100;            op_gpwm1[1]=100;                   op_gpwm1[2]=100;                   op_gpwm1[3]=100;                   op_gpwm1[4]=(op[0]-20)*100/(100-20); op_gpwm1[5]=op_gpwm1[4];  op_gpwm1[6]=op_gpwm1[4];}
 
-  //camera bimbe (regolo la sola temperatura lato strada con entrambe le elettrovalvole - non faccio media ecc... perchè se no dovrei modificare cose)
-  op_gpwm2[2]=op[7];
-  op_gpwm2[3]=op[7]; // regolo su una sola temperatura (quella che normalmente è più alta)
-  //op[8]=op[7];
-  //op_gpwm2[3]=op[8];
+  
+  op_gpwm2[2]=op[7]; // camera sara
+  op_gpwm2[3]=op[8]; // camera stella
+  op_gpwm2[1]=op[2]; //studio
 
-  //studio
-  op_gpwm2[1]=op[2];
-
-  //cam matr.
+  //PID cam matr.
   op_gpwm2[5]=op[6]; //cabina armadio
   op_gpwm2[7]=op[6]; //circuito 1 cam matr.
   op_gpwm2[8]=op[6]; //circuito 2 cam matr.
