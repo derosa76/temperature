@@ -1,0 +1,144 @@
+online da: 0 days, 0 hours, 55 minutes, 14 secs
+IP:192.168.1.27
+DNS name = Hostname ='temperature'
+available commands:
+temperature.local/?cmd=setdns;nuovo_nome_dns
+temperature.local/?cmd=setestate;1 o 0 (inverno =0, estate=1)
+temperature.local/?cmd=setdescription;x;description 
+temperature.local/?cmd=setgpio;do_n;gpio    // set del GPIO da associare al DO
+temperature.local/?cmd=set_sp;n;val
+temperature.local/?cmd=set_kp;n;val
+temperature.local/?cmd=set_ki;n;val
+temperature.local/?cmd=set_kd;n;val
+temperature.local/?cmd=get_pv;0 --> restituisce un json es. {"pv": 25.3}
+i       descrizione                 pv      sp      op      
+00      Sala                        22.20   21.7    0.0     
+01      Bagno PT                    22.56   23      100.0   
+02      Studio                      20.43   20      0.0     
+03      Bagno bimbe                 22.24   22.5    100.0   
+04      Bagno padronale             20.12   20      0.0     
+05      Cabina armadio              20.18   19      0.0     
+06      Camera matrim.              19.95   19      0.0     
+07      Cam. bimbe strada           19.58   0       0.0     
+08      Cam. bimbe giardino         20.34   100     100.0   
+09      coll_p1_in                  34.23   0       0.0     
+10      coll_p1_out                 33.43   0       0.0     
+11      coll_P0_in                  25.00   0       0.0     
+12      coll_P0_out                 25.34   0       0.0     
+13      ricircolo PT                -1.00   0       0.0     
+14      ricircolo P1                21.19   0       0.0     
+15      -                           -1.00   0       0.0     
+{
+  "dns_name": "temperature",
+  "estate": 0,
+  "description": [
+    "Sala",
+    "Bagno PT",
+    "Studio",
+    "Bagno bimbe",
+    "Bagno padronale",
+    "Cabina armadio",
+    "Camera matrim.",
+    "Cam. bimbe strada",
+    "Cam. bimbe giardino",
+    "coll_p1_in",
+    "coll_p1_out",
+    "coll_P0_in",
+    "coll_P0_out",
+    "ricircolo PT",
+    "ricircolo P1",
+    "-"
+  ],
+  "gpio": [
+    15,
+    16,
+    17,
+    21,
+    22,
+    32,
+    25,
+    23,
+    27,
+    19,
+    18,
+    26,
+    33,
+    13,
+    14,
+    4
+  ],
+  "kp": [
+    1200,
+    600,
+    600,
+    600,
+    600,
+    600,
+    600,
+    600,
+    600,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "ki": [
+    20,
+    0,
+    10,
+    10,
+    10,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "kd": [
+    0,
+    0,
+    100,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "sp": [
+    21.7,
+    23,
+    20,
+    22.5,
+    20,
+    19,
+    19,
+    0,
+    100,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}
+
+freemem: 132936 bytes
