@@ -61,7 +61,7 @@ void pid_run(){
       double dI=(double)doc["ki"][i]*err[i]*(millis()-pid_last_run_time[i])/tempo_base_; //tempo in ore
       I[i]=I[i]+dI;
 
-      D[i]=(double)doc["kd"][i]*dpv[i];
+      D[i]=-(double)doc["kd"][i]*dpv[i];
 
       //anti wind-up. Se l'uscita del PID esce dai limiti dell'output, non incremento/decremento il termine integrale.
       double op_request=action[i]*(P[i]+I[i]+D[i]); //calcolo l'ipotetico output
@@ -173,13 +173,18 @@ String pid_string(){
 }
 
 String get_all_measurements_details(){
-  String res="i       descrizione                 pv      sp      op      \r\n";
+  String res="i       descrizione                 pv      sp      op      err     dpv     P       I       D\r\n";
   for (int i=0;i<16;i++){
     res=res+allunga(format_int(i,2),8," ");
     res=res+allunga(String(doc["description"][i]),28," ");
     res=res+allunga(String(pv[i],2),8," ");
     res=res+allunga(String(doc["sp"][i]),8," ");
     res=res+allunga(String(op[i],1),8," ");
+    res=res+allunga(String(err[i],1),8," ");
+    res=res+allunga(String(dpv[i],1),8," ");
+    res=res+allunga(String(P[i],1),8," ");
+    res=res+allunga(String(I[i],1),8," ");
+    res=res+allunga(String(D[i],1),8," ");
     //res=res+allunga(String(t_filtered[i],4),8," ");
     res=res+"\r\n";
   }
